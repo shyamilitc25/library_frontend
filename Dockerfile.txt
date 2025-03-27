@@ -1,0 +1,25 @@
+# Use a base image with Java (required for Tomcat)
+FROM openjdk:17-jdk
+ 
+# Set environment variables for Tomcat
+ENV CATALINA_HOME /usr/local/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+ 
+# Download and extract Tomcat
+RUN mkdir -p $CATALINA_HOME
+WORKDIR $CATALINA_HOME
+RUN curl -O https://downloads.apache.org/tomcat/tomcat-11/v11.0.5/bin/apache-tomcat-11.0.5.tar.gz \
+&& tar xvf apache-tomcat-11.0.5.tar.gz --strip-components=1 \
+&& rm apache-tomcat-11.0.5.tar.gz
+ 
+# Set the working directory to Tomcat's webapps folder
+WORKDIR /usr/local/tomcat/webapps/
+ 
+# Copy your WAR file into the webapps directory
+COPY hello-world.war hello-world.war
+ 
+# Expose Tomcat's default port
+EXPOSE 8080
+ 
+# Start Tomcat when the container runs
+CMD ["catalina.sh", "run"]
