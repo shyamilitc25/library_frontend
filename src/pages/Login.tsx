@@ -16,7 +16,8 @@ const Login = () => {
     password: Yup.string().required("Password is required"),
   });
   const handleSubmit = async (values: ILogin) => {
-    dispatch(loginAsync(values));
+    console.log({values})
+    // dispatch(loginAsync(values));
   };
   console.log({ formData });
 
