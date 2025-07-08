@@ -19,7 +19,7 @@ function Dashboard() {
       <h1>My App</h1>
       <input value={x} onChange={(e) => setX(e.target.value)} />
       <button onClick={clicker}>Click Me</button>
-      {y ? <p>You very bad code neeeeeee!</p> : null}
+      {y ? <p>You very bad code neeeeeee and need review!</p> : null}
     </div>
   );
 }
