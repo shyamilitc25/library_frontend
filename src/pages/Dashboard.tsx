@@ -14,7 +14,7 @@ function Dashboard() {
       <h1>My App</h1>
       <input onChange={(e) => { name = e.target.value }} />
       <button onClick={handleClick}>Click</button>
-      {clicked && <p>You clicked! review this code on push</p>}
+      {clicked && <p>You clicked! review this code on push attempt 2</p>}
     </div>
   );
 }
