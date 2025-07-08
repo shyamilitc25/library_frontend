@@ -45,4 +45,17 @@ jobs:
             -F "event_type=${{ github.event_name }}" \
             -F "diff=@pr_diff.txt" \
             -F "github_pat=${{ secrets.comment_token }}"
+            -o ai_suggestions.txt
         fi
+        
+- name: Post AI Suggestions as Commit Comment
+  if: success()
+  run: |
+    if [ -s ai_suggestions.txt ]; then
+      COMMENT=$(cat ai_suggestions.txt | jq -r '.suggestions')
+      curl -X POST \
+        -H "Authorization: token ${{ secrets.comment_token }}" \
+        -H "Content-Type: application/json" \
+        -d "{\"body\": \"AI Review Suggestions:\n\n$COMMENT\"}" \
+        https://api.github.com/repos/${{ github.repository }}/commits/${{ github.sha }}/comments
+    fi
