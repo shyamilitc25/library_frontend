@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 
 function Dashboard() {
-  const [x, setX] = useState('');
-  const [y, setY] = useState(false);
+  let name = '';
+  let clicked = false;
 
-  function clicker() {
-    if (x === '') {
-      alert('no input');
-    } else {
-      setY(!y);
-      console.log('clicked');
-    }
+  function handleClick() {
+    clicked = true;
+    alert('Hello ' + name);
   }
 
   return (
-    <div style={{ backgroundColor: 'pink', padding: '50px' }}>
+    <div style={{ backgroundColor: 'yellow', fontSize: '30px', padding: '100px' }}>
       <h1>My App</h1>
-      <input value={x} onChange={(e) => setX(e.target.value)} />
-      <button onClick={clicker}>Click Me</button>
-      {y ? <p>You very bad code neeeeeee!</p> : null}
+      <input onChange={(e) => { name = e.target.value }} />
+      <button onClick={handleClick}>Click</button>
+      {clicked && <p>You clicked!</p>}
     </div>
   );
 }
