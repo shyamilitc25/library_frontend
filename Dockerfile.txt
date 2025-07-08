@@ -16,7 +16,7 @@ RUN curl -O https://downloads.apache.org/tomcat/tomcat-11/v11.0.5/bin/apache-tom
 WORKDIR /usr/local/tomcat/webapps/
  
 # Copy your WAR file into the webapps directory
-COPY hello-world.war hello-world.war
+COPY park park
  
 # Expose Tomcat's default port
 EXPOSE 8080
