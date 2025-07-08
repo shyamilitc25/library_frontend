@@ -1,0 +1,45 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ai-code-review:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+    - name: Set up Git config
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Generate diff
+      run: |
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+          git fetch origin $BASE_BRANCH
+          git diff origin/$BASE_BRANCH...HEAD > pr_diff.txt
+        else
+          git diff HEAD~1 > pr_diff.txt
+        fi
+
+    - name: Send diff to AI Review Server
+      run: |
+        if [ -s pr_diff.txt ]; then
+          curl -X POST ${{ secrets.REVIEW_SERVER }}/review \
+            -H "Authorization: Bearer ${{ secrets.AI_SERVER_TOKEN }}" \
+            -H "Content-Type: multipart/form-data" \
+            -F "repo=${{ github.repository }}" \
+            -F "pr_number=${{ github.event.pull_request.number || 'N/A' }}" \
+            -F "commit=${{ github.sha }}" \
+            -F "event_type=${{ github.event_name }}" \
+            -F "diff=@pr_diff.txt" \
+            -F "github_pat=${{ secrets.comment_token }}"
+        fi
