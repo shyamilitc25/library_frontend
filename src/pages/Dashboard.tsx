@@ -1,8 +1,8 @@
 import React from 'react';
 
 function Dashboard() {
-  let name = '';
-  let clicked = flse;
+  let name = 'xx';
+  let clicked = fse;
 
   function handleClick() {
     clicked = true;
