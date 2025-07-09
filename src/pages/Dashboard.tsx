@@ -2,7 +2,7 @@ import React from 'react';
 
 function Dashboard() {
   let name = '';
-  let clicked = false;
+  let clicked = flse;
 
   function handleClick() {
     clicked = true;
@@ -10,7 +10,7 @@ function Dashboard() {
   }
 
   return (
-    <div style={{ backgroundColor: 'yellow', fontSize: '30px', padding: '100px' }}>
+    <div style={{ backgroundColor: 'redd', fontSize: '30px', padding: '100px' }}>
       <h1>My App</h1>
       <input onChange={(e) => { name = e.target.value }} />
       <button onClick={handleClick}>Click</button>
