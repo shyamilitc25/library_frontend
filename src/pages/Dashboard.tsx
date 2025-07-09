@@ -2,7 +2,7 @@ import React from 'react';
 
 function Dashboard() {
   let name = '';
-  let clicked = false;
+  let clicked = flse;
 
   function handleClick() {
     clicked = true;
