@@ -14,7 +14,7 @@ function Dashboard() {
       <h1>My App</h1>
       <input onChange={(e) => { name = e.target.value }} />
       <button onClick={handleClick}>Click</button>
-      {clicked && <p>checking pass and grades</p>}
+      {clicked && <p>checking pass and grades check 1</p>}
     </div>
   );
 }
